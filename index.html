@@ -1,372 +1,293 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Cazuela de la 24 - Menú Digital</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        naranja: '#FF6018',
-                        azul: '#135FA1',
-                        dorado: '#FAD12E',
-                        rojo: '#CA102E',
-                    },
-                    fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
-                        montserrat: ['Montserrat', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: #1e293b;
-            margin: 0;
-            padding: 0;
-            background-color: #0f172a;
-        }
-        .page-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -10;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('fondo.png');
-        }
-        .bg-overlay {
-            background: rgba(255, 255, 255, 0.93);
-            backdrop-filter: blur(8px);
-        }
-        .gold-border {
-            border: 1px solid rgba(250, 209, 46, 0.4);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px -5px rgba(19, 95, 161, 0.12);
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#135FA1" />
+  <meta name="description" content="Menú interactivo de La Cazuela de la 24. Cocina de mar desde 1987." />
+  <title>La Cazuela de la 24 | Menú</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ocean: '#135FA1', coral: '#FF6018', sun: '#FAD12E', wine: '#CA102E', ink: '#10253D' },
+        fontFamily: { display: ['Georgia', 'serif'], sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+        boxShadow: { soft: '0 18px 60px rgba(10, 39, 67, .13)' }
+      }}
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ocean:#135FA1; --coral:#FF6018; --sun:#FAD12E; --wine:#CA102E; }
+    * { -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior:smooth; scroll-padding-top:100px; }
+    body { font-family:'DM Sans',sans-serif; background:#f8fafc; }
+    .display { font-family:'Playfair Display',Georgia,serif; }
+    .sea-bg {
+      background-image: linear-gradient(180deg,rgba(6,28,48,.72),rgba(6,28,48,.88)), url('fondo.png');
+      background-size:cover; background-position:center; background-attachment:fixed;
+    }
+    .hero-bg { background:linear-gradient(110deg,rgba(5,28,49,.84),rgba(19,95,161,.48)),url('fondo.png') center/cover; }
+    .menu-card { transition:transform .25s ease,box-shadow .25s ease; }
+    .menu-card:hover { transform:translateY(-5px); box-shadow:0 18px 40px rgba(12,45,74,.15); }
+    .product-image { cursor:pointer; }
+    .product-image img { transition:transform .45s ease; }
+    .product-image:hover img { transform:scale(1.055); }
+    .category-link[aria-current="true"] { background:var(--ocean); color:white; box-shadow:0 8px 22px rgba(19,95,161,.22); }
+    .modal-backdrop { background:rgba(4,18,32,.72); backdrop-filter:blur(8px); }
+    .no-scroll { overflow:hidden; }
+    .hide-scrollbar::-webkit-scrollbar { display:none; }
+    .hide-scrollbar { scrollbar-width:none; }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+  </style>
 </head>
-<body class="min-h-screen pb-12">
-
-    <!-- FONDO FIJO -->
-    <div class="page-bg"></div>
-
-    <!-- CONTENEDOR PRINCIPAL MOBILE 9:16 -->
-    <div class="max-w-md mx-auto min-h-screen bg-overlay shadow-2xl relative flex flex-col border-x border-slate-200/50">
-
-        <!-- HEADER / BANNER -->
-        <header class="relative bg-gradient-to-b from-[#135FA1] to-[#0c3e6a] text-white pt-8 pb-6 px-4 text-center border-b-4 border-dorado shadow-lg">
-            <div class="flex justify-center mb-3">
-                <img src="logo.png" alt="La Cazuela de la 24" class="h-24 object-contain filter drop-shadow-md">
-            </div>
-            <h1 class="font-cinzel text-2xl font-bold tracking-wide text-white drop-shadow-sm">La Cazuela de la 24</h1>
-            <p class="text-dorado font-bold text-xs uppercase tracking-widest mt-1">Desde 1987</p>
-            
-            <div class="mt-3 inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-dorado/40">
-                <i class="fa-solid fa-clock text-dorado text-xs"></i>
-                <span class="text-[11px] font-semibold text-slate-100 uppercase tracking-wider">Todos nuestros alimentos son preparados al instante</span>
-            </div>
-        </header>
-
-        <!-- NAVEGACIÓN -->
-        <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-2.5 px-3">
-            <div class="flex overflow-x-auto gap-2 no-scrollbar scroll-smooth">
-                <button onclick="scrollToCat('especialidad')" class="nav-btn bg-azul text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm flex items-center gap-1.5">
-                    <i class="fa-solid fa-star text-dorado"></i> Especialidad
-                </button>
-                <button onclick="scrollToCat('pescados')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
-                    <i class="fa-solid fa-fish text-naranja"></i> Pescados
-                </button>
-                <button onclick="scrollToCat('ceviches')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
-                    <i class="fa-solid fa-shrimp text-naranja"></i> Ceviches
-                </button>
-                <button onclick="scrollToCat('arroces')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
-                    <i class="fa-solid fa-bowl-rice text-naranja"></i> Arroces
-                </button>
-                <button onclick="scrollToCat('pastas')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
-                    <i class="fa-solid fa-utensils text-naranja"></i> Pastas
-                </button>
-                <button onclick="scrollToCat('bebidas')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
-                    <i class="fa-solid fa-glass-water text-naranja"></i> Bebidas
-                </button>
-            </div>
-        </nav>
-
-        <!-- CONTENIDO -->
-        <main class="p-4 space-y-7 flex-grow">
-
-            <!-- ESPECIALIDAD -->
-            <section id="especialidad" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-fire-burner text-rojo"></i> Nuestra Especialidad
-                    </h2>
-                </div>
-
-                <div class="glass-card rounded-2xl overflow-hidden gold-border">
-                    <div class="relative h-48 w-full bg-slate-200 cursor-pointer group" onclick="openModal('Cazuela de Mariscos', 'cazuela.jpg', 'Acompañada con arroz blanco o coco, patacón y aguacate.')">
-                        <img src="cazuela.jpg" alt="Cazuela de Mariscos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 bg-rojo text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-md">Especialidad</div>
-                        <div class="absolute bottom-2 right-2 bg-azul/80 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-lg font-semibold flex items-center gap-1">
-                            <i class="fa-solid fa-expand"></i> Ver foto
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-cinzel text-base font-bold text-azul">Cazuela de Mariscos</h3>
-                        <p class="text-xs text-naranja font-medium italic mt-0.5 mb-3">(Acompañada con arroz blanco o coco, patacón y aguacate)</p>
-                        
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-between">
-                                <span class="font-semibold text-slate-700">Mediana Mariscos</span>
-                                <span class="font-bold text-rojo text-sm mt-1">$43.000</span>
-                            </div>
-                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-between">
-                                <span class="font-semibold text-slate-700">Grande Mariscos</span>
-                                <span class="font-bold text-rojo text-sm mt-1">$48.000</span>
-                            </div>
-                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-between">
-                                <span class="font-semibold text-slate-700">Mediana Solo Camarón</span>
-                                <span class="font-bold text-rojo text-sm mt-1">$45.000</span>
-                            </div>
-                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex flex-col justify-between">
-                                <span class="font-semibold text-slate-700">Grande Solo Camarón</span>
-                                <span class="font-bold text-rojo text-sm mt-1">$50.000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PESCADOS -->
-            <section id="pescados" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-fish text-rojo"></i> Pescados
-                    </h2>
-                    <p class="text-xs text-naranja font-medium italic mt-1">(Acompañado con arroz blanco o coco, patacón, papa francesa y aguacate)</p>
-                </div>
-
-                <div class="space-y-2.5">
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Mojarra', 'mojarra.jpg')">
-                        <img src="mojarra.jpg" alt="Mojarra" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Mojarra</span>
-                            <span class="font-bold text-rojo text-sm">$45.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Filete blanco sin espinas', 'filete.jpg')">
-                        <img src="filete.jpg" alt="Filete blanco" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Filete blanco sin espinas</span>
-                            <span class="font-bold text-rojo text-sm">$45.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Salmon', 'salmon.jpg')">
-                        <img src="salmon.jpg" alt="Salmon" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Salmon</span>
-                            <span class="font-bold text-rojo text-sm">$55.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Salmon Marinero', 'salmonm.jpg')">
-                        <img src="salmonm.jpg" alt="Salmon Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Salmon Marinero</span>
-                            <span class="font-bold text-rojo text-sm">$70.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Pargo rojo / Robalo', 'pargo.jpg')">
-                        <img src="pargo.jpg" alt="Pargo rojo / Robalo" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-xs text-slate-800">Pargo rojo / Robalo</span>
-                                <span class="text-[10px] text-slate-500">(según tamaño)</span>
-                            </div>
-                            <span class="font-bold text-rojo text-xs bg-rojo/10 px-2 py-1 rounded-md">Según tamaño</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Trucha al Ajillo', 'truchaa.jpg')">
-                        <img src="truchaa.jpg" alt="Trucha al Ajillo" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Trucha al Ajillo</span>
-                            <span class="font-bold text-rojo text-sm">$45.000</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CEVICHES -->
-            <section id="ceviches" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-shrimp text-rojo"></i> Ceviches / Entradas
-                    </h2>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2.5">
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Grande', 'cevicheg.jpg')">
-                        <img src="cevicheg.jpg" alt="Ceviche Grande" class="h-24 w-full object-cover rounded-lg mb-2">
-                        <span class="font-bold text-xs text-slate-800">Ceviche Grande</span>
-                        <span class="font-bold text-rojo text-sm mt-1">$33.000</span>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Mediano', 'cevichem.jpg')">
-                        <img src="cevichem.jpg" alt="Ceviche Mediano" class="h-24 w-full object-cover rounded-lg mb-2">
-                        <span class="font-bold text-xs text-slate-800">Ceviche Mediano</span>
-                        <span class="font-bold text-rojo text-sm mt-1">$25.000</span>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Super Bomba', 'cevicheb.jpg')">
-                        <img src="cevicheb.jpg" alt="Ceviche Super Bomba" class="h-24 w-full object-cover rounded-lg mb-2">
-                        <span class="font-bold text-xs text-slate-800">Ceviche Super Bomba</span>
-                        <span class="font-bold text-rojo text-sm mt-1">$40.000</span>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Langostino al Ajillo', 'langostinoa.jpg')">
-                        <img src="langostinoa.jpg" alt="Langostino al Ajillo" class="h-24 w-full object-cover rounded-lg mb-2">
-                        <span class="font-bold text-xs text-slate-800">Langostino al Ajillo</span>
-                        <span class="font-bold text-rojo text-sm mt-1">$40.000</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ARROCES -->
-            <section id="arroces" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-bowl-rice text-rojo"></i> Arroces
-                    </h2>
-                </div>
-
-                <div class="space-y-2.5">
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Arroz de Camarón', 'arrozc.jpg')">
-                        <img src="arrozc.jpg" alt="Arroz de Camarón" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Arroz de Camarón</span>
-                            <span class="font-bold text-rojo text-sm">$45.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Arroz Marinero', 'arrozm.jpg')">
-                        <img src="arrozm.jpg" alt="Arroz Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Arroz Marinero</span>
-                            <span class="font-bold text-rojo text-sm">$50.000</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PASTAS -->
-            <section id="pastas" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-utensils text-rojo"></i> Pastas
-                    </h2>
-                </div>
-
-                <div class="space-y-2.5">
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Fettuccine de Camarón', 'pastac.jpg')">
-                        <img src="pastac.jpg" alt="Fettuccine de Camarón" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Fettuccine de Camarón</span>
-                            <span class="font-bold text-rojo text-sm">$45.000</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- BEBIDAS -->
-            <section id="bebidas" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-glass-water text-rojo"></i> Bebidas
-                    </h2>
-                </div>
-
-                <div class="space-y-2">
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Cerveza Club Colombia', 'cerveza.jpg')">
-                        <div class="flex items-center gap-2">
-                            <img src="cerveza.jpg" alt="Club Colombia" class="w-10 h-10 object-cover rounded-md">
-                            <span class="font-semibold text-xs text-slate-800">Cervezas Club Colombia</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$7.000</span>
-                    </div>
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Limonada', 'limonada.jpg')">
-                        <div class="flex items-center gap-2">
-                            <img src="limonada.jpg" alt="Limonada" class="w-10 h-10 object-cover rounded-md">
-                            <span class="font-semibold text-xs text-slate-800">Limonada</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$6.000</span>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="bg-gradient-to-b from-[#135FA1] to-[#0c3e6a] text-white text-center p-6 border-t-4 border-dorado mt-8">
-            <p class="font-cinzel text-sm font-bold tracking-wide">La Cazuela de la 24</p>
-            <p class="text-xs text-dorado font-medium mt-1">Desde 1987 &copy; Todos los derechos reservados</p>
-        </footer>
-
+<body class="text-slate-800">
+  <!-- Barra superior -->
+  <div class="bg-[#10253D] text-white text-xs sm:text-sm">
+    <div class="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between gap-3">
+      <span class="flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-[#FAD12E]"></span> Cocina preparada al instante</span>
+      <span class="hidden sm:inline tracking-wide">LA CAZUELA DE LA 24 · DESDE 1987</span>
+      <a href="#menu" class="font-semibold text-[#FAD12E] hover:text-white">Explorar menú ↓</a>
     </div>
+  </div>
 
-    <!-- MODAL DE VISUALIZACIÓN -->
-    <div id="imageModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeModal()">
-        <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl relative border border-dorado" onclick="event.stopPropagation()">
-            <button onclick="closeModal()" class="absolute top-3 right-3 bg-rojo text-white w-8 h-8 rounded-full flex items-center justify-center font-bold z-10 shadow-lg">
-                &times;
-            </button>
-            <div class="h-64 w-full bg-slate-100 flex items-center justify-center">
-                <img id="modalImage" src="" alt="Vista previa" class="w-full h-full object-cover">
-            </div>
-            <div class="p-4 text-center">
-                <h3 id="modalTitle" class="font-cinzel text-base font-bold text-azul"></h3>
-                <p id="modalDesc" class="text-xs text-naranja italic mt-1"></p>
-            </div>
+  <!-- Encabezado principal -->
+  <header class="hero-bg relative overflow-hidden text-white">
+    <div class="absolute -right-20 -top-24 h-80 w-80 rounded-full border border-white/10"></div>
+    <div class="absolute -right-5 -top-9 h-52 w-52 rounded-full border border-white/10"></div>
+    <nav class="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#" aria-label="La Cazuela de la 24, inicio" class="flex items-center gap-3">
+        <img src="logo.png" alt="Logo La Cazuela de la 24" class="h-14 w-auto max-w-[190px] object-contain sm:h-[72px]" onerror="this.style.display='none';document.getElementById('fallback-brand').classList.remove('hidden')">
+        <span id="fallback-brand" class="hidden display text-xl font-bold leading-tight">La Cazuela<br><span class="text-[#FAD12E]">de la 24</span></span>
+      </a>
+      <div class="hidden items-center gap-7 text-sm font-semibold md:flex">
+        <a class="hover:text-[#FAD12E]" href="#historia">Nuestra esencia</a>
+        <a class="hover:text-[#FAD12E]" href="#menu">Menú</a>
+        <a class="hover:text-[#FAD12E]" href="#promesa">Nuestra promesa</a>
+      </div>
+      <a href="#menu" class="rounded-full bg-[#FAD12E] px-4 py-2.5 text-sm font-bold text-[#10253D] shadow-lg transition hover:bg-white sm:px-5">Ver carta <span aria-hidden="true">↗</span></a>
+    </nav>
+
+    <div class="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-8 sm:px-6 sm:pb-24 sm:pt-12 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:pb-28">
+      <div class="max-w-2xl">
+        <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[.22em] text-[#FAD12E] backdrop-blur">
+          <span>✦</span> Tradición que sabe a mar
+        </p>
+        <h1 class="display text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">El sabor del mar,<br><span class="text-[#FAD12E] italic">servido con historia.</span></h1>
+        <p class="mt-6 max-w-xl text-base leading-7 text-white/85 sm:text-lg">La Cazuela de la 24 · Desde 1987. Recetas llenas de sabor, ingredientes que hablan por sí solos y el gusto de compartir alrededor de la mesa.</p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a href="#menu" class="inline-flex items-center justify-center gap-3 rounded-full bg-[#FF6018] px-7 py-4 font-bold text-white shadow-xl transition hover:bg-[#CA102E]">Descubrir el menú <span>↓</span></a>
+          <a href="#historia" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur transition hover:bg-white/20">Conócenos <span>↗</span></a>
         </div>
+        <div class="mt-10 flex flex-wrap gap-x-7 gap-y-4 border-t border-white/20 pt-6 text-sm text-white/85">
+          <span class="flex items-center gap-2"><span class="text-[#FAD12E]">✦</span> Desde 1987</span>
+          <span class="flex items-center gap-2"><span class="text-[#FAD12E]">✦</span> Preparado al instante</span>
+          <span class="flex items-center gap-2"><span class="text-[#FAD12E]">✦</span> Especialistas en mar</span>
+        </div>
+      </div>
+      <div class="relative mx-auto w-full max-w-lg">
+        <div class="absolute -inset-4 rotate-3 rounded-[2rem] border border-white/25"></div>
+        <div class="relative overflow-hidden rounded-[1.7rem] border border-white/25 bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
+          <img src="cazuela.jpeg" alt="Cazuela de mariscos, especialidad de la casa" class="h-[300px] w-full rounded-[1.3rem] object-cover sm:h-[400px]" onerror="this.src='fondo.png'">
+          <div class="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/25 bg-[#10253D]/85 p-4 text-white backdrop-blur-md sm:bottom-7 sm:left-7 sm:right-7 sm:p-5">
+            <div class="flex items-end justify-between gap-3">
+              <div><p class="text-xs font-bold uppercase tracking-[.2em] text-[#FAD12E]">Nuestra especialidad</p><h2 class="display mt-1 text-2xl sm:text-3xl">Cazuela de mariscos</h2></div>
+              <span class="rounded-full bg-[#FAD12E] px-3 py-1.5 text-sm font-extrabold text-[#10253D]">Desde $43.000</span>
+            </div>
+            <p class="mt-2 text-sm text-white/75">Una experiencia para disfrutar sin afán.</p>
+          </div>
+        </div>
+        <div class="absolute -right-3 -top-5 hidden rounded-2xl bg-white px-4 py-3 text-[#10253D] shadow-xl sm:block">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-[#135FA1]">Desde</p><p class="display text-2xl font-bold">1987</p>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <!-- SCRIPTS -->
-    <script>
-        function scrollToCat(id) {
-            const el = document.getElementById(id);
-            if(el) { el.scrollIntoView({ behavior: 'smooth' }); }
-        }
+  <main>
+    <section id="historia" class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <div class="grid gap-8 md:grid-cols-[.7fr_1.3fr] md:items-end">
+        <div><p class="text-xs font-extrabold uppercase tracking-[.25em] text-[#FF6018]">Una tradición viva</p><h2 class="display mt-3 text-4xl font-semibold leading-tight text-[#10253D] sm:text-5xl">El mar es el protagonista.</h2></div>
+        <p class="max-w-2xl text-base leading-7 text-slate-600 md:justify-self-end">En La Cazuela de la 24 celebramos el sabor de la cocina de mar con preparaciones hechas al momento. Elige tu favorito, toca la fotografía para conocer los detalles y encuentra el plato perfecto para compartir.</p>
+      </div>
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"><span class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-orange-50 text-xl text-[#FF6018]">♨</span><h3 class="font-bold text-[#10253D]">Preparado al instante</h3><p class="mt-2 text-sm leading-6 text-slate-500">Cada pedido se prepara al momento para disfrutarlo recién hecho.</p></div>
+        <div class="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"><span class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-xl text-[#135FA1]">〰</span><h3 class="font-bold text-[#10253D]">Esencia de mar</h3><p class="mt-2 text-sm leading-6 text-slate-500">Cazuelas, pescados, ceviches, arroces y pastas con sabor marinero.</p></div>
+        <div class="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"><span class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-yellow-50 text-xl text-[#B68A00]">♡</span><h3 class="font-bold text-[#10253D]">Para compartir</h3><p class="mt-2 text-sm leading-6 text-slate-500">Acompañamientos y bebidas para completar tu experiencia.</p></div>
+      </div>
+    </section>
 
-        function openModal(title, imgSrc, desc = '') {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalImage').src = imgSrc;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('imageModal').classList.remove('hidden');
-        }
+    <section id="menu" class="sea-bg py-14 text-white sm:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-xs font-extrabold uppercase tracking-[.28em] text-[#FAD12E]">La carta</p>
+          <h2 class="display mt-3 text-4xl font-semibold sm:text-5xl">Encuentra tu próximo favorito</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">Explora por categoría. Toca la imagen de cualquier plato para abrir su ficha con precio, acompañamientos y detalles.</p>
+        </div>
+        <div class="sticky top-0 z-30 -mx-4 mt-8 border-y border-white/10 bg-[#071F35]/95 px-4 py-3 backdrop-blur-xl sm:static sm:mx-0 sm:mt-10 sm:border-0 sm:bg-transparent sm:p-0">
+          <div id="category-nav" class="hide-scrollbar mx-auto flex max-w-full gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center">
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="all" aria-current="true">Toda la carta</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="especialidad">Especialidad</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="pescados">Pescados</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="ceviches">Ceviches y entradas</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="arroces">Arroces</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="pastas">Pastas</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="porciones">Porciones</button>
+            <button class="category-link shrink-0 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-bold transition" data-category="bebidas">Bebidas</button>
+          </div>
+        </div>
+        <div id="menu-grid" class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+        <p class="mt-8 text-center text-xs leading-5 text-white/60">Precios en pesos colombianos (COP). Los pescados indicados “según tamaño” tienen precio variable. Consulta disponibilidad con el restaurante.</p>
+      </div>
+    </section>
 
-        function closeModal() {
-            document.getElementById('imageModal').classList.add('hidden');
-        }
-    </script>
+    <section id="promesa" class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <div class="overflow-hidden rounded-[2rem] bg-[#10253D] text-white shadow-soft">
+        <div class="grid md:grid-cols-[1fr_auto] md:items-center">
+          <div class="p-7 sm:p-10 lg:p-14">
+            <p class="text-xs font-extrabold uppercase tracking-[.25em] text-[#FAD12E]">Nuestra promesa</p>
+            <h2 class="display mt-3 max-w-2xl text-3xl font-semibold leading-tight sm:text-4xl">TODOS NUESTROS ALIMENTOS SON PREPARADOS AL INSTANTE.</h2>
+            <p class="mt-4 max-w-xl text-sm leading-6 text-white/70 sm:text-base">Gracias por elegirnos y ser parte de nuestra historia desde 1987.</p>
+            <a href="#menu" class="mt-7 inline-flex items-center gap-3 rounded-full bg-[#FF6018] px-6 py-3.5 font-bold text-white transition hover:bg-[#CA102E]">Volver al menú <span>↑</span></a>
+          </div>
+          <div class="hidden h-full min-h-[260px] w-64 items-center justify-center bg-[#135FA1] md:flex lg:w-80">
+            <div class="text-center"><span class="display text-7xl text-[#FAD12E]">’87</span><p class="mt-2 text-xs font-bold uppercase tracking-[.25em]">Desde 1987</p><div class="mx-auto mt-5 h-1 w-14 rounded-full bg-[#FF6018]"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-7 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3"><img src="logo.png" alt="" class="h-9 w-auto max-w-[120px] object-contain" onerror="this.style.display='none'"><span><strong class="text-[#10253D]">La Cazuela de la 24</strong><br><span class="text-xs">Una tradición desde 1987</span></span></div>
+      <p>Todos nuestros alimentos son preparados al instante.</p>
+      <a href="#top" class="font-bold text-[#135FA1] hover:text-[#FF6018]">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <!-- Ficha de producto accesible -->
+  <div id="product-modal" class="modal-backdrop fixed inset-0 z-50 hidden items-end justify-center p-0 sm:items-center sm:p-5" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="relative max-h-[94dvh] w-full max-w-3xl overflow-y-auto rounded-t-[1.75rem] bg-white text-slate-800 shadow-2xl sm:rounded-[1.75rem]">
+      <button id="modal-close" class="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-2xl text-[#10253D] shadow-lg transition hover:bg-[#FAD12E]" aria-label="Cerrar ficha">×</button>
+      <div class="grid md:grid-cols-2">
+        <div class="relative min-h-[230px] bg-slate-100 sm:min-h-[360px]"><img id="modal-image" src="" alt="" class="absolute inset-0 h-full w-full object-cover"></div>
+        <div class="p-6 sm:p-8 md:p-9">
+          <p id="modal-category" class="text-xs font-extrabold uppercase tracking-[.2em] text-[#FF6018]"></p>
+          <h3 id="modal-title" class="display mt-2 pr-8 text-3xl font-semibold leading-tight text-[#10253D] sm:text-4xl"></h3>
+          <p id="modal-price" class="mt-4 text-2xl font-extrabold text-[#135FA1]"></p>
+          <div class="my-5 h-px bg-slate-200"></div>
+          <p id="modal-description" class="text-sm leading-7 text-slate-600"></p>
+          <div id="modal-options" class="mt-5"></div>
+          <p class="mt-6 rounded-xl bg-orange-50 p-3 text-xs leading-5 text-slate-600"><span class="font-bold text-[#CA102E]">Nota:</span> Todos nuestros alimentos son preparados al instante. Los precios están expresados en pesos colombianos.</p>
+          <button id="modal-done" class="mt-5 w-full rounded-full bg-[#135FA1] px-5 py-3.5 font-bold text-white transition hover:bg-[#10253D]">Seguir explorando</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="toast" class="pointer-events-none fixed bottom-5 left-1/2 z-[60] hidden -translate-x-1/2 rounded-full bg-[#10253D] px-5 py-3 text-sm font-semibold text-white shadow-xl"></div>
+
+  <script>
+    const products = [
+      {name:'Cazuela de Mariscos',category:'especialidad',price:43000,image:'cazuela.jpeg',description:'Nuestra especialidad de la casa, con sabor intenso a mar.',options:['Mediana mariscos — $43.000','Grande mariscos — $48.000','Mediana solo camarón — $45.000','Grande solo camarón — $50.000'],accompaniment:'Acompañada con arroz blanco o de coco, patacón y aguacate.'},
+      {name:'Mojarra',category:'pescados',price:45000,image:'mojarra.jpeg',description:'Mojarra preparada al momento.',accompaniment:'Acompañada con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Filete blanco sin espinas',category:'pescados',price:45000,image:'filete.jpeg',description:'Filete blanco sin espinas.',accompaniment:'Acompañado con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Salmón',category:'pescados',price:55000,image:'salmon.jpeg',description:'Salmón preparado al momento.',accompaniment:'Acompañado con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Salmón Marinero',category:'pescados',price:70000,image:'salmonm.jpeg',description:'Salmón con preparación marinera.',accompaniment:'Acompañado con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Filete Marinero',category:'pescados',price:58000,image:'filete.jpeg',description:'Filete en preparación marinera.',accompaniment:'Acompañado con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Pargo rojo',category:'pescados',price:null,priceLabel:'Según tamaño',image:'pargo.jpeg',description:'Pargo rojo. El precio depende del tamaño disponible.',accompaniment:'Consulta el precio según tamaño.'},
+      {name:'Róbalo',category:'pescados',price:null,priceLabel:'Según tamaño',image:'robalo.jpeg',description:'Róbalo preparado al momento. El precio depende del tamaño.',accompaniment:'Acompañado con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Trucha al Ajillo',category:'pescados',price:45000,image:'truchaa.jpeg',description:'Trucha en preparación al ajillo.',accompaniment:'Acompañada con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Trucha a la Marinera',category:'pescados',price:58000,image:'truchaam.jpeg',description:'Trucha en preparación marinera.',accompaniment:'Acompañada con arroz blanco o de coco, patacón, papa francesa y aguacate.'},
+      {name:'Ceviche Grande',category:'ceviches',price:33000,image:'CEVICHEG.JPEG',description:'Ceviche en presentación grande.'},
+      {name:'Ceviche Mediano',category:'ceviches',price:25000,image:'cevichem.jpeg',description:'Ceviche en presentación mediana.'},
+      {name:'Ceviche Super Bomba',category:'ceviches',price:40000,image:'cevicheb.jpeg',description:'Ceviche en presentación Super Bomba.'},
+      {name:'Langostino al Ajillo',category:'ceviches',price:40000,image:'langostinoa.jpeg',description:'Langostinos preparados al ajillo.'},
+      {name:'Langostinos Apanados',category:'ceviches',price:40000,image:'langostinoap.jpeg',description:'Langostinos apanados.'},
+      {name:'Arroz de Camarón',category:'arroces',price:45000,image:'arrozc.jpeg',description:'Arroz preparado con camarón.'},
+      {name:'Arroz Marinero',category:'arroces',price:50000,image:'arrozm.jpeg',description:'Arroz de inspiración marinera.'},
+      {name:'Fettuccine de Camarón',category:'pastas',price:45000,image:'pastac.jpeg',description:'Fettuccine con camarón.'},
+      {name:'Fettuccine Marinero',category:'pastas',price:50000,image:'pastam.jpeg',description:'Fettuccine en preparación marinera.'},
+      {name:'Fettuccine de Salmón',category:'pastas',price:50000,image:'pastas.jpeg',description:'Fettuccine con salmón.'},
+      {name:'Patacón',category:'porciones',price:8000,image:'patacon.jpeg',description:'Porción adicional de patacón.'},
+      {name:'Arroz',category:'porciones',price:7000,image:'arrozbla.jpeg',description:'Porción adicional de arroz.'},
+      {name:'Aguacate',category:'porciones',price:7000,image:'aguacate.jpeg',description:'Porción de aguacate.'},
+      {name:'Papa a la francesa',category:'porciones',price:9000,image:'papaf.jpeg',description:'Porción de papa a la francesa.'},
+      {name:'Queso',category:'porciones',price:7000,image:'queso.jpeg',description:'Porción de queso.'},
+      {name:'Complemento',category:'porciones',price:10000,description:'Porción de complemento. La imagen no fue especificada en el documento.'},
+      {name:'Cerveza Club Colombia',category:'bebidas',price:7000,image:'cerveza.jpeg',description:'Cerveza Club Colombia.'},
+      {name:'Poker',category:'bebidas',price:7000,image:'cerveza2.jpeg',description:'Cerveza Poker.'},
+      {name:'Cola y Pola',category:'bebidas',price:7000,image:'colaypola.jpeg',description:'Bebida Cola y Pola.'},
+      {name:'Gaseosa Litro',category:'bebidas',price:10000,image:'gaseosa.jpeg',description:'Gaseosa en presentación de litro.'},
+      {name:'Limonada',category:'bebidas',price:6000,image:'limonada.jpeg',description:'Limonada.'},
+      {name:'Jarra de Limonada Grande',category:'bebidas',price:17000,image:'jarrag.jpeg',description:'Jarra grande de limonada.'},
+      {name:'Jarra de Limonada Mediana',category:'bebidas',price:12000,image:'jarram.jpeg',description:'Jarra mediana de limonada.'},
+      {name:'Jugos Naturales en Agua',category:'bebidas',price:6000,image:'jugoa.jpeg',description:'Jugo natural preparado en agua.'},
+      {name:'Jugos Naturales en Leche',category:'bebidas',price:7000,image:'jugol.jpeg',description:'Jugo natural preparado en leche.'},
+      {name:'Gaseosa Personal',category:'bebidas',price:5000,image:'gaseosap.jpeg',description:'Gaseosa en presentación personal.'},
+      {name:'Agua Grande',category:'bebidas',price:4000,image:'aguag.jpeg',description:'Agua en presentación grande.'},
+      {name:'Agua Pequeña',category:'bebidas',price:2000,image:'aguap.jpeg',description:'Agua en presentación pequeña.'},
+      {name:'Jugo de Borojó',category:'bebidas',price:10000,image:'borojo.jpeg',description:'Jugo de borojó.'},
+      {name:'Berraquillo',category:'bebidas',price:15000,image:'berraquillo.jpeg',description:'Bebida berraquillo.'}
+    ];
+    const categoryNames = {especialidad:'Nuestra especialidad',pescados:'Pescados',ceviches:'Ceviches / Entradas',arroces:'Arroces',pastas:'Pastas',porciones:'Porciones',bebidas:'Bebidas'};
+    const money = n => n == null ? '' : '$' + n.toLocaleString('es-CO');
+    const grid = document.getElementById('menu-grid');
+    let currentCategory = 'all';
+    function productCard(p, i) {
+      const price = p.priceLabel || money(p.price);
+      const image = p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.closest('.product-image').classList.add('image-missing');this.style.display='none';this.nextElementSibling.classList.remove('hidden')"><div class="hidden absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#135FA1] to-[#10253D] p-5 text-center text-white"><span><span class="mb-2 block text-3xl">✦</span><span class="font-bold">${p.name}</span></span></div>` : `<div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#135FA1] to-[#10253D] p-5 text-center text-white"><span><span class="mb-2 block text-3xl">✦</span><span class="font-bold">${p.name}</span></span></div>`;
+      return `<article class="menu-card overflow-hidden rounded-2xl bg-white text-slate-800 shadow-lg" data-index="${i}">
+        <button type="button" class="product-image group relative block h-52 w-full overflow-hidden bg-slate-200 text-left" data-open="${i}" aria-label="Ver detalles de ${p.name}">
+          ${image}
+          <span class="absolute bottom-3 left-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#135FA1] shadow">${categoryNames[p.category] || 'Especialidad'}</span>
+          <span class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#FAD12E] text-lg text-[#10253D] shadow transition group-hover:scale-110">↗</span>
+        </button>
+        <div class="p-5">
+          <div class="flex min-h-[58px] items-start justify-between gap-3"><h3 class="display text-xl font-semibold leading-snug text-[#10253D]">${p.name}</h3><span class="shrink-0 text-right text-sm font-extrabold text-[#135FA1]">${price}</span></div>
+          <p class="mt-2 line-clamp-2 min-h-[40px] text-sm leading-5 text-slate-500">${p.accompaniment || p.description}</p>
+          <button type="button" data-open="${i}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#FF6018] hover:text-[#CA102E]">Ver detalles <span aria-hidden="true">→</span></button>
+        </div>
+      </article>`;
+    }
+    function renderMenu() {
+      const filtered = products.map((p,i)=>({...p,_i:i})).filter(p => currentCategory === 'all' || p.category === currentCategory);
+      grid.innerHTML = filtered.map(p => productCard(p,p._i)).join('');
+      grid.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => openProduct(Number(btn.dataset.open))));
+    }
+    function openProduct(index) {
+      const p = products[index];
+      document.getElementById('modal-image').src = p.image || '';
+      document.getElementById('modal-image').alt = p.name;
+      document.getElementById('modal-image').style.display = p.image ? 'block' : 'none';
+      document.getElementById('modal-category').textContent = categoryNames[p.category] || 'Nuestra especialidad';
+      document.getElementById('modal-title').textContent = p.name;
+      document.getElementById('modal-price').textContent = p.priceLabel || money(p.price);
+      document.getElementById('modal-description').textContent = p.description || '';
+      const options = document.getElementById('modal-options');
+      options.innerHTML = '';
+      if (p.accompaniment) options.innerHTML += `<div class="rounded-xl bg-blue-50 p-4"><p class="text-xs font-extrabold uppercase tracking-wider text-[#135FA1]">Acompañamiento</p><p class="mt-1 text-sm leading-6 text-slate-700">${p.accompaniment}</p></div>`;
+      if (p.options) options.innerHTML += `<div class="mt-3 space-y-2">${p.options.map(o=>`<div class="flex items-center justify-between gap-3 rounded-xl border border-slate-200 px-4 py-3 text-sm"><span>${o.split(' — ')[0]}</span><strong class="text-[#135FA1]">${o.split(' — ')[1]}</strong></div>`).join('')}</div>`;
+      const modal = document.getElementById('product-modal');
+      modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.classList.add('no-scroll');
+      document.getElementById('modal-close').focus();
+    }
+    function closeModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.classList.remove('no-scroll');
+    }
+    document.querySelectorAll('.category-link').forEach(btn => btn.addEventListener('click', () => {
+      currentCategory = btn.dataset.category;
+      document.querySelectorAll('.category-link').forEach(b => b.setAttribute('aria-current', String(b === btn)));
+      renderMenu();
+    }));
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal-done').addEventListener('click', closeModal);
+    document.getElementById('product-modal').addEventListener('click', e => { if(e.target.id === 'product-modal') closeModal(); });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+    renderMenu();
+  </script>
 </body>
 </html>
