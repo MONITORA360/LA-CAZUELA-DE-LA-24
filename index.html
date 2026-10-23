@@ -49,10 +49,10 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-image: url('FONDO.PNG');
+            background-image: url('fondo.png');
         }
         .bg-overlay {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.93);
             backdrop-filter: blur(8px);
         }
         .gold-border {
@@ -71,63 +71,19 @@
             scrollbar-width: none;
         }
     </style>
-    <script>
-        // Sistema inteligente robusto para probar extensiones si el archivo exacto falla en Linux / GitHub Pages
-        function tryNextExt(img, name) {
-            if (!img.dataset.step) {
-                img.dataset.step = "1";
-                img.src = name + ".jpeg";
-            } else if (img.dataset.step === "1") {
-                img.dataset.step = "2";
-                img.src = name + ".jpg";
-            } else if (img.dataset.step === "2") {
-                img.dataset.step = "3";
-                img.src = name + ".JPG";
-            } else if (img.dataset.step === "3") {
-                img.dataset.step = "4";
-                img.src = name + ".png";
-            } else if (img.dataset.step === "4") {
-                img.dataset.step = "5";
-                img.src = name + ".PNG";
-            } else {
-                img.onerror = null;
-                img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23f1f5f9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" fill="%2394a3b8">Imagen no disponible</text></svg>';
-            }
-        }
-
-        // Cargar fondo dinámicamente con respaldo
-        window.addEventListener('DOMContentLoaded', () => {
-            const bgDiv = document.createElement('div');
-            bgDiv.className = 'page-bg';
-            document.body.prepend(bgDiv);
-
-            const testImg = new Image();
-            testImg.onerror = () => {
-                testImg.onerror = () => {
-                    testImg.onerror = () => {
-                        testImg.onerror = () => {
-                            bgDiv.style.backgroundImage = "none";
-                            bgDiv.style.backgroundColor = "#f8fafc";
-                        };
-                        testImg.src = "fondo.PNG";
-                    };
-                    testImg.src = "FONDO.jpg";
-                };
-                testImg.src = "FONDO.jpeg";
-            };
-            testImg.src = "FONDO.PNG";
-        });
-    </script>
 </head>
 <body class="min-h-screen pb-12">
+
+    <!-- FONDO FIJO -->
+    <div class="page-bg"></div>
 
     <!-- CONTENEDOR PRINCIPAL FORMATO MOBILE 9:16 -->
     <div class="max-w-md mx-auto min-h-screen bg-overlay shadow-2xl relative flex flex-col border-x border-slate-200/50">
 
-        <!-- HEADER / BANNER ELEGANTE -->
+        <!-- HEADER / BANNER -->
         <header class="relative bg-gradient-to-b from-[#135FA1] to-[#0c3e6a] text-white pt-8 pb-6 px-4 text-center border-b-4 border-dorado shadow-lg">
             <div class="flex justify-center mb-3">
-                <img src="LOGO.PNG" alt="La Cazuela de la 24" class="h-24 object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300" onerror="tryNextExt(this, 'LOGO')">
+                <img src="logo.png" alt="La Cazuela de la 24" class="h-24 object-contain filter drop-shadow-md">
             </div>
             <h1 class="font-cinzel text-2xl font-bold tracking-wide text-white drop-shadow-sm">La Cazuela de la 24</h1>
             <p class="text-dorado font-bold text-xs uppercase tracking-widest mt-1">Desde 1987</p>
@@ -138,37 +94,37 @@
             </div>
         </header>
 
-        <!-- NAVEGACIÓN PEGAJOSA POR CATEGORÍAS -->
+        <!-- NAVEGACIÓN -->
         <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-2.5 px-3">
             <div class="flex overflow-x-auto gap-2 no-scrollbar scroll-smooth">
-                <button onclick="scrollToCat('especialidad')" class="nav-btn bg-azul text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm flex items-center gap-1.5 transition-all">
+                <button onclick="scrollToCat('especialidad')" class="nav-btn bg-azul text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm flex items-center gap-1.5">
                     <i class="fa-solid fa-star text-dorado"></i> Especialidad
                 </button>
-                <button onclick="scrollToCat('pescados')" class="nav-btn bg-slate-100 text-azul hover:bg-azul hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5">
+                <button onclick="scrollToCat('pescados')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
                     <i class="fa-solid fa-fish text-naranja"></i> Pescados
                 </button>
-                <button onclick="scrollToCat('ceviches')" class="nav-btn bg-slate-100 text-azul hover:bg-azul hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5">
+                <button onclick="scrollToCat('ceviches')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
                     <i class="fa-solid fa-shrimp text-naranja"></i> Ceviches
                 </button>
-                <button onclick="scrollToCat('arroces')" class="nav-btn bg-slate-100 text-azul hover:bg-azul hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5">
+                <button onclick="scrollToCat('arroces')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
                     <i class="fa-solid fa-bowl-rice text-naranja"></i> Arroces
                 </button>
-                <button onclick="scrollToCat('pastas')" class="nav-btn bg-slate-100 text-azul hover:bg-azul hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5">
+                <button onclick="scrollToCat('pastas')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
                     <i class="fa-solid fa-utensils text-naranja"></i> Pastas
                 </button>
-                <button onclick="scrollToCat('porciones')" class="nav-btn bg-slate-100 text-azul hover:bg-azul hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5">
+                <button onclick="scrollToCat('porciones')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
                     <i class="fa-solid fa-plate-wheat text-naranja"></i> Porciones
                 </button>
-                <button onclick="scrollToCat('bebidas')" class="nav-btn bg-slate-100 text-azul hover:bg-azul hover:text-white px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5">
+                <button onclick="scrollToCat('bebidas')" class="nav-btn bg-slate-100 text-azul px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5">
                     <i class="fa-solid fa-glass-water text-naranja"></i> Bebidas
                 </button>
             </div>
         </nav>
 
-        <!-- CONTENIDO DEL MENÚ -->
+        <!-- CONTENIDO -->
         <main class="p-4 space-y-7 flex-grow">
 
-            <!-- NUESTRA ESPECIALIDAD -->
+            <!-- ESPECIALIDAD -->
             <section id="especialidad" class="scroll-mt-20">
                 <div class="border-b-2 border-naranja pb-2 mb-3">
                     <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
@@ -177,8 +133,8 @@
                 </div>
 
                 <div class="glass-card rounded-2xl overflow-hidden gold-border">
-                    <div class="relative h-48 w-full bg-slate-200 cursor-pointer group" onclick="openModal('Cazuela de Mariscos', 'CAZUELA.JPEG', 'Acompañada con arroz blanco o coco, patacón y aguacate.')">
-                        <img src="CAZUELA.JPEG" alt="Cazuela de Mariscos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="tryNextExt(this, 'CAZUELA')">
+                    <div class="relative h-48 w-full bg-slate-200 cursor-pointer group" onclick="openModal('Cazuela de Mariscos', 'cazuela.jpg', 'Acompañada con arroz blanco o coco, patacón y aguacate.')">
+                        <img src="cazuela.jpg" alt="Cazuela de Mariscos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-3 right-3 bg-rojo text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-md">Especialidad</div>
                         <div class="absolute bottom-2 right-2 bg-azul/80 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-lg font-semibold flex items-center gap-1">
                             <i class="fa-solid fa-expand"></i> Ver foto
@@ -219,59 +175,44 @@
                     <p class="text-xs text-naranja font-medium italic mt-1">(Acompañado con arroz blanco o coco, patacón, papa francesa y aguacate)</p>
                 </div>
 
-                <!-- MOSAICO ENCABEZADO -->
-                <div class="grid grid-cols-4 gap-1.5 mb-3 rounded-xl overflow-hidden gold-border shadow-sm p-1 bg-white">
-                    <img src="MOJARA.JPEG" alt="Mosaico Mojarra" class="h-16 w-full object-cover rounded-lg" onerror="tryNextExt(this, 'MOJARA')">
-                    <img src="ROBALO.JPEG" alt="Mosaico Robalo" class="h-16 w-full object-cover rounded-lg" onerror="tryNextExt(this, 'ROBALO')">
-                    <img src="SALMON.JPEG" alt="Mosaico Salmon" class="h-16 w-full object-cover rounded-lg" onerror="tryNextExt(this, 'SALMON')">
-                    <img src="FILETE1.JPEG" alt="Mosaico Filete" class="h-16 w-full object-cover rounded-lg" onerror="tryNextExt(this, 'FILETE1')">
-                </div>
-
-                <!-- LISTA DE PESCADOS -->
                 <div class="space-y-2.5">
-                    <!-- Mojarra -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Mojarra', 'MOJARRA.JPEG')">
-                        <img src="MOJARRA.JPEG" alt="Mojarra" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'MOJARRA')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Mojarra', 'mojarra.jpg')">
+                        <img src="mojarra.jpg" alt="Mojarra" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Mojarra</span>
                             <span class="font-bold text-rojo text-sm">$45.000</span>
                         </div>
                     </div>
-                    <!-- Filete blanco sin espinas -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Filete blanco sin espinas', 'FILETE.JPEG')">
-                        <img src="FILETE.JPEG" alt="Filete blanco" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'FILETE')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Filete blanco sin espinas', 'filete.jpg')">
+                        <img src="filete.jpg" alt="Filete blanco" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Filete blanco sin espinas</span>
                             <span class="font-bold text-rojo text-sm">$45.000</span>
                         </div>
                     </div>
-                    <!-- Salmon -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Salmon', 'SALMON.JPEG')">
-                        <img src="SALMON.JPEG" alt="Salmon" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'SALMON')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Salmon', 'salmon.jpg')">
+                        <img src="salmon.jpg" alt="Salmon" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Salmon</span>
                             <span class="font-bold text-rojo text-sm">$55.000</span>
                         </div>
                     </div>
-                    <!-- Salmon Marinero -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Salmon Marinero', 'SALMONM.JPEG')">
-                        <img src="SALMONM.JPEG" alt="Salmon Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'SALMONM')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Salmon Marinero', 'salmonm.jpg')">
+                        <img src="salmonm.jpg" alt="Salmon Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Salmon Marinero</span>
                             <span class="font-bold text-rojo text-sm">$70.000</span>
                         </div>
                     </div>
-                    <!-- Filete Marinero -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Filete Marinero', 'FILETE.JPEG')">
-                        <img src="FILETE.JPEG" alt="Filete Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'FILETE')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Filete Marinero', 'filete.jpg')">
+                        <img src="filete.jpg" alt="Filete Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Filete Marinero</span>
                             <span class="font-bold text-rojo text-sm">$58.000</span>
                         </div>
                     </div>
-                    <!-- Pargo rojo / Robalo -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Pargo rojo / Robalo', 'PARGO.JPEG')">
-                        <img src="PARGO.JPEG" alt="Pargo rojo / Robalo" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'PARGO')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Pargo rojo / Robalo', 'pargo.jpg')">
+                        <img src="pargo.jpg" alt="Pargo rojo / Robalo" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <div class="flex flex-col">
                                 <span class="font-bold text-xs text-slate-800">Pargo rojo / Robalo</span>
@@ -280,17 +221,15 @@
                             <span class="font-bold text-rojo text-xs bg-rojo/10 px-2 py-1 rounded-md">Según tamaño</span>
                         </div>
                     </div>
-                    <!-- Trucha al Ajillo -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Trucha al Ajillo', 'TRUCHAA.JPEG')">
-                        <img src="TRUCHAA.JPEG" alt="Trucha al Ajillo" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'TRUCHAA')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Trucha al Ajillo', 'truchaa.jpg')">
+                        <img src="truchaa.jpg" alt="Trucha al Ajillo" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Trucha al Ajillo</span>
                             <span class="font-bold text-rojo text-sm">$45.000</span>
                         </div>
                     </div>
-                    <!-- Trucha a la Marinera -->
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Trucha a la Marinera', 'TRUCHAAM.JPEG')">
-                        <img src="TRUCHAAM.JPEG" alt="Trucha a la Marinera" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'TRUCHAAM')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Trucha a la Marinera', 'truchaam.jpg')">
+                        <img src="truchaam.jpg" alt="Trucha a la Marinera" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Trucha a la Marinera</span>
                             <span class="font-bold text-rojo text-sm">$58.000</span>
@@ -299,7 +238,7 @@
                 </div>
             </section>
 
-            <!-- CEVICHES / ENTRADAS -->
+            <!-- CEVICHES -->
             <section id="ceviches" class="scroll-mt-20">
                 <div class="border-b-2 border-naranja pb-2 mb-3">
                     <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
@@ -308,39 +247,25 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-2.5">
-                    <!-- Ceviche Grande -->
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Grande', 'CEVICHEG.JPEG')">
-                        <img src="CEVICHEG.JPEG" alt="Ceviche Grande" class="h-24 w-full object-cover rounded-lg mb-2" onerror="tryNextExt(this, 'CEVICHEG')">
+                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Grande', 'cevicheg.jpg')">
+                        <img src="cevicheg.jpg" alt="Ceviche Grande" class="h-24 w-full object-cover rounded-lg mb-2">
                         <span class="font-bold text-xs text-slate-800">Ceviche Grande</span>
                         <span class="font-bold text-rojo text-sm mt-1">$33.000</span>
                     </div>
-                    <!-- Ceviche Mediano -->
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Mediano', 'CEVICHEM.JPEG')">
-                        <img src="CEVICHEM.JPEG" alt="Ceviche Mediano" class="h-24 w-full object-cover rounded-lg mb-2" onerror="tryNextExt(this, 'CEVICHEM')">
+                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Mediano', 'cevichem.jpg')">
+                        <img src="cevichem.jpg" alt="Ceviche Mediano" class="h-24 w-full object-cover rounded-lg mb-2">
                         <span class="font-bold text-xs text-slate-800">Ceviche Mediano</span>
                         <span class="font-bold text-rojo text-sm mt-1">$25.000</span>
                     </div>
-                    <!-- Ceviche Super Bomba -->
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Super Bomba', 'CEVICHEB.JPEG')">
-                        <img src="CEVICHEB.JPEG" alt="Ceviche Super Bomba" class="h-24 w-full object-cover rounded-lg mb-2" onerror="tryNextExt(this, 'CEVICHEB')">
+                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Ceviche Super Bomba', 'cevicheb.jpg')">
+                        <img src="cevicheb.jpg" alt="Ceviche Super Bomba" class="h-24 w-full object-cover rounded-lg mb-2">
                         <span class="font-bold text-xs text-slate-800">Ceviche Super Bomba</span>
                         <span class="font-bold text-rojo text-sm mt-1">$40.000</span>
                     </div>
-                    <!-- Langostino al Ajillo -->
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Langostino al Ajillo', 'LANGOSTINOA.JPEG')">
-                        <img src="LANGOSTINOA.JPEG" alt="Langostino al Ajillo" class="h-24 w-full object-cover rounded-lg mb-2" onerror="tryNextExt(this, 'LANGOSTINOA')">
+                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between cursor-pointer" onclick="openModal('Langostino al Ajillo', 'langostinoa.jpg')">
+                        <img src="langostinoa.jpg" alt="Langostino al Ajillo" class="h-24 w-full object-cover rounded-lg mb-2">
                         <span class="font-bold text-xs text-slate-800">Langostino al Ajillo</span>
                         <span class="font-bold text-rojo text-sm mt-1">$40.000</span>
-                    </div>
-                    <!-- Langostinos Apanados -->
-                    <div class="glass-card p-2.5 rounded-xl flex flex-col justify-between col-span-2 cursor-pointer" onclick="openModal('Langostinos Apanados', 'LANGOSTINOAP.JPEG')">
-                        <div class="flex items-center gap-3">
-                            <img src="LANGOSTINOAP.JPEG" alt="Langostinos Apanados" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'LANGOSTINOAP')">
-                            <div class="flex-grow flex justify-between items-center pr-1">
-                                <span class="font-bold text-xs text-slate-800">Langostinos Apanados</span>
-                                <span class="font-bold text-rojo text-sm">$40.000</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -354,15 +279,15 @@
                 </div>
 
                 <div class="space-y-2.5">
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Arroz de Camarón', 'ARROZC.JPEG')">
-                        <img src="ARROZC.JPEG" alt="Arroz de Camarón" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'ARROZC')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Arroz de Camarón', 'arrozc.jpg')">
+                        <img src="arrozc.jpg" alt="Arroz de Camarón" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Arroz de Camarón</span>
                             <span class="font-bold text-rojo text-sm">$45.000</span>
                         </div>
                     </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Arroz Marinero', 'ARROZM.JPEG')">
-                        <img src="ARROZM.JPEG" alt="Arroz Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'ARROZM')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Arroz Marinero', 'arrozm.jpg')">
+                        <img src="arrozm.jpg" alt="Arroz Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Arroz Marinero</span>
                             <span class="font-bold text-rojo text-sm">$50.000</span>
@@ -380,77 +305,19 @@
                 </div>
 
                 <div class="space-y-2.5">
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Fettuccine de Camarón', 'PASTAC.JPEG')">
-                        <img src="PASTAC.JPEG" alt="Fettuccine de Camarón" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'PASTAC')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Fettuccine de Camarón', 'pastac.jpg')">
+                        <img src="pastac.jpg" alt="Fettuccine de Camarón" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Fettuccine de Camarón</span>
                             <span class="font-bold text-rojo text-sm">$45.000</span>
                         </div>
                     </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Fettuccine Marinero', 'PASTAM.JPEG')">
-                        <img src="PASTAM.JPEG" alt="Fettuccine Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'PASTAM')">
+                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Fettuccine Marinero', 'pastam.jpg')">
+                        <img src="pastam.jpg" alt="Fettuccine Marinero" class="w-16 h-16 object-cover rounded-lg flex-shrink-0">
                         <div class="flex-grow flex justify-between items-center pr-1">
                             <span class="font-bold text-xs text-slate-800">Fettuccine Marinero</span>
                             <span class="font-bold text-rojo text-sm">$50.000</span>
                         </div>
-                    </div>
-                    <div class="glass-card p-2.5 rounded-xl flex items-center gap-3 cursor-pointer" onclick="openModal('Fettuccine de Salmon', 'PASTAS.JPEG')">
-                        <img src="PASTAS.JPEG" alt="Fettuccine de Salmon" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'PASTAS')">
-                        <div class="flex-grow flex justify-between items-center pr-1">
-                            <span class="font-bold text-xs text-slate-800">Fettuccine de Salmon</span>
-                            <span class="font-bold text-rojo text-sm">$50.000</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PORCIONES -->
-            <section id="porciones" class="scroll-mt-20">
-                <div class="border-b-2 border-naranja pb-2 mb-3">
-                    <h2 class="font-cinzel text-lg font-extrabold text-azul uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-plate-wheat text-rojo"></i> Porciones
-                    </h2>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="glass-card p-2 rounded-xl flex items-center gap-2 cursor-pointer" onclick="openModal('Patacón', 'PATACON.JPEG')">
-                        <img src="PATACON.JPEG" alt="Patacón" class="w-12 h-12 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'PATACON')">
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-xs text-slate-800">Patacón</span>
-                            <span class="font-bold text-rojo text-xs">$8.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2 rounded-xl flex items-center gap-2 cursor-pointer" onclick="openModal('Arroz', 'ARROZBLA.JPEG')">
-                        <img src="ARROZBLA.JPEG" alt="Arroz" class="w-12 h-12 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'ARROZBLA')">
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-xs text-slate-800">Arroz</span>
-                            <span class="font-bold text-rojo text-xs">$7.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2 rounded-xl flex items-center gap-2 cursor-pointer" onclick="openModal('Aguacate', 'AGUACATE.JPEG')">
-                        <img src="AGUACATE.JPEG" alt="Aguacate" class="w-12 h-12 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'AGUACATE')">
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-xs text-slate-800">Aguacate</span>
-                            <span class="font-bold text-rojo text-xs">$7.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2 rounded-xl flex items-center gap-2 cursor-pointer" onclick="openModal('Papa a la francesa', 'PAPAF.JPEG')">
-                        <img src="PAPAF.JPEG" alt="Papa francesa" class="w-12 h-12 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'PAPAF')">
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-xs text-slate-800">Papa francesa</span>
-                            <span class="font-bold text-rojo text-xs">$9.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2 rounded-xl flex items-center gap-2 cursor-pointer" onclick="openModal('Queso', 'QUESO.JPEG')">
-                        <img src="QUESO.JPEG" alt="Queso" class="w-12 h-12 object-cover rounded-lg flex-shrink-0" onerror="tryNextExt(this, 'QUESO')">
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-xs text-slate-800">Queso</span>
-                            <span class="font-bold text-rojo text-xs">$7.000</span>
-                        </div>
-                    </div>
-                    <div class="glass-card p-2 rounded-xl flex items-center justify-between px-3">
-                        <span class="font-semibold text-xs text-slate-800">Complemento</span>
-                        <span class="font-bold text-rojo text-xs">$10.000</span>
                     </div>
                 </div>
             </section>
@@ -464,141 +331,48 @@
                 </div>
 
                 <div class="space-y-2">
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Cerveza Club Colombia', 'CERVEZA.JPEG')">
+                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Cerveza Club Colombia', 'cerveza.jpg')">
                         <div class="flex items-center gap-2">
-                            <img src="CERVEZA.JPEG" alt="Club Colombia" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'CERVEZA')">
+                            <img src="cerveza.jpg" alt="Club Colombia" class="w-10 h-10 object-cover rounded-md">
                             <span class="font-semibold text-xs text-slate-800">Cervezas Club Colombia</span>
                         </div>
                         <span class="font-bold text-rojo text-xs">$7.000</span>
                     </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Poker', 'CERVEZA2.JPEG')">
+                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Limonada', 'limonada.jpg')">
                         <div class="flex items-center gap-2">
-                            <img src="CERVEZA2.JPEG" alt="Poker" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'CERVEZA2')">
-                            <span class="font-semibold text-xs text-slate-800">Poker</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$7.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Cola y Pola', 'COLAYPOLA.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="COLAYPOLA.JPEG" alt="Cola y Pola" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'COLAYPOLA')">
-                            <span class="font-semibold text-xs text-slate-800">Cola y Pola</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$7.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Gaseosa Litron', 'GASEOSA.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="GASEOSA.JPEG" alt="Gaseosa Litron" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'GASEOSA')">
-                            <span class="font-semibold text-xs text-slate-800">Gaseosa Litron</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$10.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Limonada', 'LIMONADA.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="LIMONADA.JPEG" alt="Limonada" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'LIMONADA')">
+                            <img src="limonada.jpg" alt="Limonada" class="w-10 h-10 object-cover rounded-md">
                             <span class="font-semibold text-xs text-slate-800">Limonada</span>
                         </div>
                         <span class="font-bold text-rojo text-xs">$6.000</span>
                     </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Jarra de Limonada Grande', 'JARRAG.JPEG')">
+                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Jugo de Borojó', 'borojo.jpg')">
                         <div class="flex items-center gap-2">
-                            <img src="JARRAG.JPEG" alt="Jarra Grande" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'JARRAG')">
-                            <span class="font-semibold text-xs text-slate-800">Jarra de Limonada Grande</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$17.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Jarra de Limonada Mediana', 'JARRAM.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="JARRAM.JPEG" alt="Jarra Mediana" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'JARRAM')">
-                            <span class="font-semibold text-xs text-slate-800">Jarra de Limonada Mediana</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$12.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Jugos Naturales en Agua', 'JUGOA.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="JUGOA.JPEG" alt="Jugo Agua" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'JUGOA')">
-                            <span class="font-semibold text-xs text-slate-800">Jugos Naturales en Agua</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$6.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Jugos Naturales en Leche', 'JUGOL.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="JUGOL.JPEG" alt="Jugo Leche" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'JUGOL')">
-                            <span class="font-semibold text-xs text-slate-800">Jugos Naturales en Leche</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$7.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Gaseosa Personal', 'GASEOSAP.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="GASEOSAP.JPEG" alt="Gaseosa Personal" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'GASEOSAP')">
-                            <span class="font-semibold text-xs text-slate-800">Gaseosa Personal</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$5.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Agua Grande', 'AGUAG.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="AGUAG.JPEG" alt="Agua Grande" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'AGUAG')">
-                            <span class="font-semibold text-xs text-slate-800">Agua Grande</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$4.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Agua Pequeña', 'AGUAP.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="AGUAP.JPEG" alt="Agua Pequeña" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'AGUAP')">
-                            <span class="font-semibold text-xs text-slate-800">Agua Pequeña</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$2.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Jugo de Borojó', 'BOROJO.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="BOROJO.JPEG" alt="Borojo" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'BOROJO')">
+                            <img src="borojo.jpg" alt="Borojo" class="w-10 h-10 object-cover rounded-md">
                             <span class="font-semibold text-xs text-slate-800">Jugo de Borojó</span>
                         </div>
                         <span class="font-bold text-rojo text-xs">$10.000</span>
-                    </div>
-
-                    <div class="glass-card p-2 rounded-lg flex items-center justify-between cursor-pointer" onclick="openModal('Berraquillo', 'BERRAQUILLO.JPEG')">
-                        <div class="flex items-center gap-2">
-                            <img src="BERRAQUILLO.JPEG" alt="Berraquillo" class="w-10 h-10 object-cover rounded-md" onerror="tryNextExt(this, 'BERRAQUILLO')">
-                            <span class="font-semibold text-xs text-slate-800">Berraquillo</span>
-                        </div>
-                        <span class="font-bold text-rojo text-xs">$15.000</span>
                     </div>
                 </div>
             </section>
 
         </main>
 
-        <!-- FOOTER ELEGANTE -->
+        <!-- FOOTER -->
         <footer class="bg-gradient-to-b from-[#135FA1] to-[#0c3e6a] text-white text-center p-6 border-t-4 border-dorado mt-8">
             <p class="font-cinzel text-sm font-bold tracking-wide">La Cazuela de la 24</p>
             <p class="text-xs text-dorado font-medium mt-1">Desde 1987 &copy; Todos los derechos reservados</p>
-            <div class="mt-3 text-[10px] text-slate-300 uppercase tracking-widest">
-                Comida de Mar & Alta Cocina
-            </div>
         </footer>
 
     </div>
 
-    <!-- MODAL DE VISUALIZACIÓN DE FOTO GRANDE (CORREGIDO CON SOPORTE DE EXTENSIONES) -->
-    <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 transition-all" onclick="closeModal()">
+    <!-- MODAL -->
+    <div id="imageModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4" onclick="closeModal()">
         <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl relative border border-dorado" onclick="event.stopPropagation()">
             <button onclick="closeModal()" class="absolute top-3 right-3 bg-rojo text-white w-8 h-8 rounded-full flex items-center justify-center font-bold z-10 shadow-lg">
                 &times;
             </button>
             <div class="h-64 w-full bg-slate-100 flex items-center justify-center">
-                <img id="modalImage" src="" alt="Vista previa" class="w-full h-full object-cover" onerror="tryNextExt(this, this.dataset.baseName || '')">
+                <img id="modalImage" src="" alt="Vista previa" class="w-full h-full object-cover">
             </div>
             <div class="p-4 text-center">
                 <h3 id="modalTitle" class="font-cinzel text-base font-bold text-azul"></h3>
@@ -607,25 +381,15 @@
         </div>
     </div>
 
-    <!-- SCRIPT INTERACTIVO CORREGIDO -->
     <script>
         function scrollToCat(id) {
             const el = document.getElementById(id);
-            if(el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-            }
+            if(el) { el.scrollIntoView({ behavior: 'smooth' }); }
         }
 
         function openModal(title, imgSrc, desc = '') {
             document.getElementById('modalTitle').innerText = title;
-            const modalImg = document.getElementById('modalImage');
-            
-            // Extraer nombre base sin extensión para que el modal use el mismo respaldador inteligente
-            const baseName = imgSrc.includes('.') ? imgSrc.substring(0, imgSrc.lastIndexOf('.')) : imgSrc;
-            modalImg.dataset.baseName = baseName;
-            modalImg.dataset.step = ""; // Reiniciar el paso de respaldo
-            
-            modalImg.src = imgSrc;
+            document.getElementById('modalImage').src = imgSrc;
             document.getElementById('modalDesc').innerText = desc;
             document.getElementById('imageModal').classList.remove('hidden');
         }

@@ -1,11 +1,26 @@
-# La Cazuela de la 24 - Repositorio GitHub Ready
+# La Cazuela de la 24 - Solución Definitiva
 
-Este directorio está optimizado para cargarse directamente en GitHub y desplegarse en GitHub Pages.
+Para que **TODO** (fondo, fotos de los platos y modal) cargue perfectamente en GitHub Pages, **la única y definitiva regla** es que todos tus archivos de imagen en tu computador deben guardarse con extensión **`.jpg`** (en minúsculas) y subirse junto con `index.html` y `.nojekyll` en la misma carpeta raíz.
 
-## Solución al problema de carga de imágenes:
-Los servidores de GitHub Pages funcionan en sistemas Linux donde los nombres de archivo son **estrictamente sensibles a mayúsculas/minúsculas y extensiones** (por ejemplo, `.jpeg` vs `.JPEG` vs `.jpg`).
-
-Se ha implementado una rutina inteligente de recuperación automática en JavaScript (`tryNextExt`):
-1. Intenta cargar el archivo original.
-2. Si falla por diferencias de minúsculas/mayúsculas o formato (`.JPEG`, `.jpeg`, `.jpg`, `.JPG`, `.png`), prueba automáticamente todas las variaciones.
-3. Si la foto no existe localmente, muestra un elegante indicador SVG visual en lugar de un icono roto de navegador.
+Nombres requeridos en minúsculas:
+- `fondo.png` (o `.jpg`)
+- `logo.png`
+- `cazuela.jpg`
+- `mojarra.jpg`
+- `filete.jpg`
+- `salmon.jpg`
+- `salmonm.jpg`
+- `pargo.jpg`
+- `truchaa.jpg`
+- `truchaam.jpg`
+- `cevicheg.jpg`
+- `cevichem.jpg`
+- `cevicheb.jpg`
+- `langostinoa.jpg`
+- `arrozc.jpg`
+- `arrozm.jpg`
+- `pastac.jpg`
+- `pastam.jpg`
+- `cerveza.jpg`
+- `limonada.jpg`
+- `borojo.jpg`
